@@ -1,8 +1,5 @@
 console.log("Portfolio Mayland berhasil dimuat!");
 
-window.onload = function () {
-    alert("Selamat datang di Portfolio Mayland Valdano!");
-}
 
 // =============================
 // Tombol Scroll ke Atas
@@ -10,24 +7,33 @@ window.onload = function () {
 
 const topBtn = document.getElementById("topBtn");
 
-window.onscroll = function () {
+window.addEventListener("scroll", function () {
 
     if (document.documentElement.scrollTop > 200) {
+
         topBtn.style.display = "block";
+
     } else {
+
         topBtn.style.display = "none";
+
     }
 
-}
+});
 
-topBtn.onclick = function () {
+
+topBtn.addEventListener("click", function () {
 
     window.scrollTo({
+
         top: 0,
         behavior: "smooth"
+
     });
 
-}
+});
+
+
 
 // =============================
 // Scroll Animation
@@ -35,29 +41,46 @@ topBtn.onclick = function () {
 
 const hiddenElements = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver((entries) => {
 
-    entries.forEach(entry => {
+const sectionObserver = new IntersectionObserver((entries)=>{
 
-        if (entry.isIntersecting) {
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
             entry.target.classList.add("show");
+
         }
 
     });
 
-}, {
-    threshold: 0.2
+
+},{
+    threshold:0.2
 });
 
-hiddenElements.forEach(section => {
+
+hiddenElements.forEach(section=>{
 
     section.classList.add("hidden");
-    observer.observe(section);
+
+    sectionObserver.observe(section);
 
 });
 
+
 // Hero langsung tampil
-document.querySelector("#home").classList.remove("hidden");
+
+const hero = document.querySelector("#home");
+
+if(hero){
+
+    hero.classList.remove("hidden");
+
+}
+
+
+
 
 // =============================
 // Typing Effect
@@ -66,9 +89,12 @@ document.querySelector("#home").classList.remove("hidden");
 const text =
 "IT Support • Helpdesk • Technical Support • Web Developer";
 
+
 const typingText = document.getElementById("typing-text");
 
+
 let index = 0;
+
 
 function typingEffect(){
 
@@ -84,39 +110,53 @@ function typingEffect(){
 
 }
 
-typingEffect();
+
+if(typingText){
+
+    typingEffect();
+
+}
+
+
+
 
 // =============================
-// Progress Bar Animation
+// Skill Progress Bar Animation
 // =============================
 
-const skillSection = document.querySelector("#skill");
-const progressBars = document.querySelectorAll(".progress-bar");
 
-let skillAnimated = false;
+const progressBars = document.querySelectorAll("#skill .progress-bar");
 
-const skillObserver = new IntersectionObserver((entries) => {
 
-    entries.forEach(entry => {
+const skillObserver = new IntersectionObserver((entries)=>{
 
-        if (entry.isIntersecting && !skillAnimated) {
 
-            progressBars.forEach(bar => {
+    entries.forEach(entry=>{
 
-                const width = bar.dataset.width;
 
-                bar.style.width = width;
+        if(entry.isIntersecting){
 
-            });
 
-            skillAnimated = true;
+            entry.target.style.width =
+            entry.target.getAttribute("data-width");
+
 
         }
 
+
     });
 
-}, {
-    threshold: 0.4
+
+},{
+
+    threshold:0.5
+
 });
 
-skillObserver.observe(skillSection);
+
+
+progressBars.forEach(bar=>{
+
+    skillObserver.observe(bar);
+
+});
